@@ -36,7 +36,7 @@ namespace HybridFlow
 
                 var tenantId = GetConfigValue("TenantId");
                 var clientId = GetConfigValue("ClientId");
-                var clientSecret = GetConfigValue("ClientKey");
+                var clientSecret = GetConfigValue("ClientSecret");
                 var ocsUrl = GetConfigValue("Resource");
                 var apiVersion = GetConfigValue("ApiVersion");
 
