@@ -57,15 +57,15 @@ jobs:
     pool:
       name: 00-OSIManaged-Containers
       demands: Agent.OS -equals Windows_NT
-   variables:
-    - name: ClientId
-      value: $(HybridClientId)
-    - name: ClientSecret
-      value: $(HybridClientSecret)
-    - name: Username
-      value: $(AuthorizationUsername)
-    - name: Password
-      value: $(AuthorizationPassword)
+    variables:
+      - name: ClientId
+        value: $(HybridClientId)
+      - name: ClientSecret
+        value: $(HybridClientSecret)
+      - name: Username
+        value: $(AuthorizationUsername)
+      - name: Password
+        value: $(AuthorizationPassword)
    steps:        
       - template: '/miscellaneous/build_templates/appsettings.yml@templates'
         secrets: 'TenantId, NamespaceId, AuthorizationUsername, AuthorizationPassword, HybridClientId, HybridClientSecret'
