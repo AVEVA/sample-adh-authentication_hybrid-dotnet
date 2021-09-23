@@ -34,7 +34,18 @@ jobs:
     pool:
       name: 00-OSIManaged-Test
       demands: COMPUTERNAME -equals $(buildAgent)
-    steps:
+    variables:
+      - name: ClientId
+        value: $(HybridClientId)
+      - name: ClientSecret
+        value: $(HybridClientSecret)
+      - name: Username
+        value: $(AuthorizationUsername)
+      - name: Password
+        value: $(AuthorizationPassword)
+    steps:        
+      - template: '/miscellaneous/build_templates/appsettings.yml@templates'
+        secrets: 'TenantId, NamespaceId, AuthorizationUsername, AuthorizationPassword, HybridClientId, HybridClientSecret'
 
       - script: npm install chromedriver --detect_chromedriver_version
         displayName: 'Install chromedriver'
@@ -57,19 +68,7 @@ jobs:
     pool:
       name: 00-OSIManaged-Containers
       demands: Agent.OS -equals Windows_NT
-    variables:
-      - name: ClientId
-        value: $(HybridClientId)
-      - name: ClientSecret
-        value: $(HybridClientSecret)
-      - name: Username
-        value: $(AuthorizationUsername)
-      - name: Password
-        value: $(AuthorizationPassword)
-   steps:        
-      - template: '/miscellaneous/build_templates/appsettings.yml@templates'
-        secrets: 'TenantId, NamespaceId, AuthorizationUsername, AuthorizationPassword, HybridClientId, HybridClientSecret'
-      
+    steps:
       - task: DotNetCoreCLI@2
         displayName: 'Nuget restore'
         inputs:
