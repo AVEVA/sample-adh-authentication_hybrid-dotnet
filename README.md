@@ -1,6 +1,6 @@
 # Hybrid Flow Sample and Test
 
-**Version:** 1.1.20
+**Version:** 1.1.21
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/OCS/osisoft.sample-ocs-authentication_hybrid-dotnet?repoName=osisoft%2Fsample-ocs-authentication_hybrid-dotnet&branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=3091&repoName=osisoft%2Fsample-ocs-authentication_hybrid-dotnet&branchName=main)
 
