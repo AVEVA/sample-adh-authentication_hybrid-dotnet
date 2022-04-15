@@ -45,7 +45,7 @@ namespace HybridFlow
                 }
 
                 Console.WriteLine("Prompting for login via a browser...");
-                var scope = "openid ocsapi offline_access";
+                string scope = "openid ocsapi offline_access";
                 loginResult = SignIn(clientId, clientSecret, scope, tenantId).Result;
             }
             while (loginResult.IsError);
@@ -73,10 +73,10 @@ namespace HybridFlow
         private static async Task<ProviderInformation> GetProviderInformation()
         {
             // Discover endpoints from metadata.
-            using HttpClient client = new HttpClient();
+            using HttpClient client = new ();
 
             // Create a discovery request
-            using var discoveryDocumentRequest = new DiscoveryDocumentRequest
+            using DiscoveryDocumentRequest discoveryDocumentRequest = new ()
             {
                 Address = OcsIdentityUrl,
                 Policy = new DiscoveryPolicy
@@ -85,7 +85,7 @@ namespace HybridFlow
                 },
             };
 
-            var discoveryResponse =
+            DiscoveryDocumentResponse discoveryResponse =
                 await client.GetDiscoveryDocumentAsync(discoveryDocumentRequest).ConfigureAwait(false);
 
             return discoveryResponse.IsError
@@ -108,12 +108,12 @@ namespace HybridFlow
         {
             // create a redirect URI using an available port on the loopback address.
             // requires the OP to allow random ports on 127.0.0.1 - otherwise set a static port
-            var browser = new SystemBrowser(RedirectPort);
-            var redirectUri = $"{RedirectHost}:{browser.Port}/{RedirectPath}";
+            SystemBrowser browser = new (RedirectPort);
+            string redirectUri = $"{RedirectHost}:{browser.Port}/{RedirectPath}";
             try
             {
                 // Create the OICD client Options
-                var options = new OidcClientOptions
+                OidcClientOptions options = new ()
                 {
                     Authority = OcsIdentityUrl,
                     ClientId = clientId,
@@ -134,7 +134,7 @@ namespace HybridFlow
                 };
 
                 _oidcClient = new OidcClient(options);
-                var loginRequest = new LoginRequest
+                LoginRequest loginRequest = new ()
                 {
                     FrontChannelExtraParameters = new Dictionary<string, string> { { "acr_values", $"tenant:{tenantId}" } },
                 };
@@ -160,18 +160,18 @@ namespace HybridFlow
             Console.WriteLine($"Using refresh token: {refreshToken}");
 
             // Get provider information manually
-            var provider = await GetProviderInformation().ConfigureAwait(false);
+            ProviderInformation provider = await GetProviderInformation().ConfigureAwait(false);
 
             // Make a refresh token request. This will issue new access and refresh tokens.
-            using var tokenClient = new HttpClient();
-            using var refreshRequest = new RefreshTokenRequest
+            using HttpClient tokenClient = new ();
+            using RefreshTokenRequest refreshRequest = new ()
             {
                 Address = provider.TokenEndpoint,
                 ClientId = clientId,
                 ClientSecret = clientSecret,
                 RefreshToken = refreshToken,
             };
-            var response = await tokenClient.RequestRefreshTokenAsync(refreshRequest).ConfigureAwait(false);
+            TokenResponse response = await tokenClient.RequestRefreshTokenAsync(refreshRequest).ConfigureAwait(false);
 
             if (response.IsError)
             {
