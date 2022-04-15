@@ -38,7 +38,7 @@ namespace HybridFlow
                 throw new ArgumentException("Options cannot be null", nameof(options));
             }
 
-            using LoopbackHttpListener listener = new(Port, _path);
+            using LoopbackHttpListener listener = new (Port, _path);
             OpenBrowser.OpenBrowser(options.StartUrl, UserName, Password);
 
             try
