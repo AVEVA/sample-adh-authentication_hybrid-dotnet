@@ -12,7 +12,7 @@ namespace HybridFlow
     {
         private const int DefaultTimeout = 60 * 5; // 5 mins (in seconds)
         private readonly IWebHost _host;
-        private readonly TaskCompletionSource<string> _source = new();
+        private readonly TaskCompletionSource<string> _source = new ();
 
         public LoopbackHttpListener(int port, string path = null)
         {
