@@ -10,10 +10,15 @@ namespace HybridFlow
     public static class Program
     {
         private static IConfiguration _configuration;
+        private static Exception _toThrow;
 
         public static void Main()
         {
-            bool test = false;
+            MainAsync().GetAwaiter().GetResult();
+        }
+
+        public static async Task<bool> MainAsync(bool test = false)
+        { 
             try
             {
                 InitConfig();
@@ -48,7 +53,7 @@ namespace HybridFlow
                 Console.WriteLine("Expires: " + expiration);
 
                 // Make a request to Get Users endpoint
-                bool result1 = GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).Result;
+                bool result1 = await GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).ConfigureAwait(false);
                 Console.WriteLine(result1
                     ? "Request succeeded"
                     : "request failed");
@@ -64,7 +69,7 @@ namespace HybridFlow
                 Console.WriteLine("Expires: " + expiration);
 
                 // Make a request to Get Users endpoint
-                bool result2 = GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).Result;
+                bool result2 = await GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).ConfigureAwait(false);
                 Console.WriteLine(result2
                     ? "Request succeeded"
                     : "request failed");
@@ -74,12 +79,14 @@ namespace HybridFlow
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                if (test)
-                    throw;
+                _toThrow = e;
+                throw;
             }
 
-            if (!test)
-                Console.ReadLine();
+            if (test && _toThrow != null)
+                throw _toThrow;
+
+            return _toThrow == null;
         }
 
         private static async Task<bool> GetRequest(string endpoint, string accessToken)
