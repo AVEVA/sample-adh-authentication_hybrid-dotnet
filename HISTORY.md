@@ -3,6 +3,8 @@
 ## 1.1.25 / 2022-04-15
 
 - Replaced var with explicit types
+- Refactored main function to be async
+- Implemented general C# best practices 
 
 ## 1.1.24 / 2022-03-15
 
