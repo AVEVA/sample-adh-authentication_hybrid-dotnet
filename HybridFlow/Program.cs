@@ -10,10 +10,15 @@ namespace HybridFlow
     public static class Program
     {
         private static IConfiguration _configuration;
+        private static Exception _toThrow;
 
         public static void Main()
         {
-            bool test = false;
+            MainAsync().GetAwaiter().GetResult();
+        }
+
+        public static async Task<bool> MainAsync(bool test = false)
+        { 
             try
             {
                 InitConfig();
@@ -34,21 +39,21 @@ namespace HybridFlow
                 Hybrid.RedirectPort = int.Parse(GetConfigValue("RedirectPort"), CultureInfo.InvariantCulture);
                 Hybrid.RedirectPath = GetConfigValue("RedirectPath");
 
-                var tenantId = GetConfigValue("TenantId");
-                var clientId = GetConfigValue("ClientId");
-                var clientSecret = GetConfigValue("ClientSecret");
-                var ocsUrl = GetConfigValue("Resource");
-                var apiVersion = GetConfigValue("ApiVersion");
+                string tenantId = GetConfigValue("TenantId");
+                string clientId = GetConfigValue("ClientId");
+                string clientSecret = GetConfigValue("ClientSecret");
+                string ocsUrl = GetConfigValue("Resource");
+                string apiVersion = GetConfigValue("ApiVersion");
 
                 // Get access token and refresh token.
-                var (accessToken, refreshToken, expiration) =
+                (string accessToken, string refreshToken, DateTime expiration) =
                     Hybrid.GetHybridFlowAccessToken(clientId, clientSecret, tenantId);
                 Console.WriteLine("Access Token: " + accessToken);
                 Console.WriteLine("Refresh Token: " + refreshToken);
                 Console.WriteLine("Expires: " + expiration);
 
                 // Make a request to Get Users endpoint
-                var result1 = GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).Result;
+                bool result1 = await GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).ConfigureAwait(false);
                 Console.WriteLine(result1
                     ? "Request succeeded"
                     : "request failed");
@@ -64,7 +69,7 @@ namespace HybridFlow
                 Console.WriteLine("Expires: " + expiration);
 
                 // Make a request to Get Users endpoint
-                var result2 = GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).Result;
+                bool result2 = await GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).ConfigureAwait(false);
                 Console.WriteLine(result2
                     ? "Request succeeded"
                     : "request failed");
@@ -74,18 +79,20 @@ namespace HybridFlow
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                if (test)
-                    throw;
+                _toThrow = e;
+                throw;
             }
 
-            if (!test)
-                Console.ReadLine();
+            if (test && _toThrow != null)
+                throw _toThrow;
+
+            return _toThrow == null;
         }
 
         private static async Task<bool> GetRequest(string endpoint, string accessToken)
         {
             Console.WriteLine("Make request:");
-            using var request = new HttpRequestMessage()
+            using HttpRequestMessage request = new ()
             {
                 Method = HttpMethod.Get,
                 RequestUri = new Uri(endpoint),
@@ -97,8 +104,8 @@ namespace HybridFlow
 
             try
             {
-                using var client = new HttpClient();
-                var response = await client.SendAsync(request).ConfigureAwait(false);
+                using HttpClient client = new ();
+                HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
 
                 // Uncomment this line to get the results of the calls
@@ -142,7 +149,7 @@ namespace HybridFlow
                     InitConfig();
                 }
 
-                var value = _configuration.GetValue<string>(key);
+                string value = _configuration.GetValue<string>(key);
 
                 if (value == null)
                 {

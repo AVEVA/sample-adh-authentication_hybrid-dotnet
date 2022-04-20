@@ -8,7 +8,7 @@ namespace HybridFlowTest
         public void HybridFlowTest()
         {
             HybridFlow.SystemBrowser.OpenBrowser = new OpenTestBrowser();
-            HybridFlow.Program.Main();
+            Assert.True(HybridFlow.Program.MainAsync(true).Result);
         }
     }
 }
