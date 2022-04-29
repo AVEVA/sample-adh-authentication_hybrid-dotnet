@@ -3,7 +3,7 @@
 | :loudspeaker: **Notice**: Samples have been updated to reflect that they work on AVEVA Data Hub.  The samples also work on OSIsoft Cloud Services unless otherwise noted. |
 | -----------------------------------------------------------------------------------------------|  
 
-**Version:** 1.1.25
+**Version:** 1.2.0
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/ADH/aveva.sample-adh-authentication_hybrid-dotnet?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=3091&branchName=main)
 
@@ -11,8 +11,8 @@ This client uses the OIDC Hybrid Flow to obtain an access token. See the main AD
 
 ## Requirements
 
-- .NET 5.0 or later
-  - Note: Visual Studio 16.8 or later is required for development against .NET 5.0
+- .NET 6.0 or later
+  - Note: Visual Studio 17.1 or later is required for development against .NET 6.0
 - Web Browser with Javascript enabled
   - You will need Google Chrome if you want to run the automated test
 
@@ -80,7 +80,7 @@ dotnet test
 
 ---
 
-Tested against DotNet 5.0
+Tested against DotNet 6.0
 
 For the main ADH Authentication samples page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS/blob/main/docs/AUTHENTICATION.md)  
 For the main ADH samples page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS)  
