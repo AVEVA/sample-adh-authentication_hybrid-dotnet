@@ -1,5 +1,9 @@
 # Version History
 
+## 1.2.5 / 2022-11-22
+
+- Resolve pipeline failure
+
 ## 1.2.4 / 2022-10-25
 
 - Revert IdentityModel.OidcClient Update
