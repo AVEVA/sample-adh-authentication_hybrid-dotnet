@@ -1,5 +1,9 @@
 # Version History
 
+## 1.2.4 / 2022-10-25
+
+- Revert IdentityModel.OidcClient Update
+
 ## 1.2.3 / 2022-08-17
 
 - Automate dependabot approval and automerge
