@@ -52,8 +52,8 @@ namespace HybridFlow
                 Console.WriteLine("Refresh Token: " + refreshToken);
                 Console.WriteLine("Expires: " + expiration);
 
-                // Make a request to Get Users endpoint
-                bool result1 = await GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).ConfigureAwait(false);
+                // Make a request to Get Namespaces endpoint
+                bool result1 = await GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Namespaces", accessToken).ConfigureAwait(false);
                 Console.WriteLine(result1
                     ? "Request succeeded"
                     : "request failed");
@@ -68,8 +68,8 @@ namespace HybridFlow
                 Console.WriteLine("Refresh Token: " + refreshToken);
                 Console.WriteLine("Expires: " + expiration);
 
-                // Make a request to Get Users endpoint
-                bool result2 = await GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Users", accessToken).ConfigureAwait(false);
+                // Make a request to Get Namespaces endpoint
+                bool result2 = await GetRequest($"{ocsUrl}/api/{apiVersion}/Tenants/{tenantId}/Namespaces", accessToken).ConfigureAwait(false);
                 Console.WriteLine(result2
                     ? "Request succeeded"
                     : "request failed");
