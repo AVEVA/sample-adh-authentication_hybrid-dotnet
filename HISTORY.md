@@ -1,5 +1,9 @@
 # Version History
 
+## 1.2.7 / 2023-10-13
+
+- Migrate Pipelines
+
 ## 1.2.6 / 2023-04-11
 
 - Update login flow

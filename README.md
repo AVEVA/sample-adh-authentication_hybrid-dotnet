@@ -1,6 +1,6 @@
 # Hybrid Flow Sample and Test
 
-**Version:** 1.2.6
+**Version:** 1.2.7
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/ADH/aveva.sample-adh-authentication_hybrid-dotnet?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=3091&branchName=main)
 
