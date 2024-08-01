@@ -4,7 +4,7 @@
 
 [![Build Status](https://dev.azure.com/osieng/engineering/_apis/build/status/product-readiness/ADH/aveva.sample-adh-authentication_hybrid-dotnet?branchName=main)](https://dev.azure.com/osieng/engineering/_build/latest?definitionId=3091&branchName=main)
 
-This client uses the OIDC Hybrid Flow to obtain an access token. See the main ADH Authentication samples page [README](https://github.com/osisoft/OSI-Samples-OCS/blob/main/docs/AUTHENTICATION_README.md) for more information about this flow.
+This client uses the OIDC Hybrid Flow to obtain an access token. See the main Cds Authentication samples page [README](https://github.com/osisoft/OSI-Samples-OCS/blob/main/docs/AUTHENTICATION_README.md) for more information about this flow.
 
 ## Requirements
 
@@ -25,7 +25,7 @@ This client uses the OIDC Hybrid Flow to obtain an access token. See the main AD
 
 ### Prerequisites
 
-- Register a Hybrid client in ADH and ensure that the registered client in ADH contains `https://127.0.0.1:54567/signin-oidc` in the list of RedirectUris.
+- Register a Hybrid client in Cds and ensure that the registered client in Cds contains `https://127.0.0.1:54567/signin-oidc` in the list of RedirectUris.
 
 - Replace the placeholders in the `appsettings.json` file with your Tenant Id, Client Id, and Client Secret obtained from registration.
 
@@ -79,6 +79,6 @@ dotnet test
 
 Tested against DotNet 6.0
 
-For the main ADH Authentication samples page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS/blob/main/docs/AUTHENTICATION.md)  
-For the main ADH samples page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS)  
+For the main Cds Authentication samples page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS/blob/main/docs/AUTHENTICATION.md)  
+For the main Cds samples page [ReadMe](https://github.com/osisoft/OSI-Samples-OCS)  
 For the main AVEVA samples page [ReadMe](https://github.com/osisoft/OSI-Samples)
